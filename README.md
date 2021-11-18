@@ -4,8 +4,8 @@
     git clone https://github.com/maliouache/ResearchLab.git
  
  2- Open terminal and change the cwd to the folder where Composer.json is located, all the terminal commands to execute are done in this folder, if you are located in a different folder, please update the commands with the right paths
-    
-    cd ResearchLab1.0/
+        
+    cd ResearchLab/ResearchLab1.0/
 
  3- Execute the following commands:
  
