@@ -21,6 +21,6 @@
     
  6- Deploy the application on the server, you can use a dev environment by using the following command, or deploy a prod environment by hosting the app with defining web/ as the root app directory
  
-	php bin/console server:start
+	php bin/console server:run
 
 Please make sure you are connected to internet since it uses bootstrap ressources
