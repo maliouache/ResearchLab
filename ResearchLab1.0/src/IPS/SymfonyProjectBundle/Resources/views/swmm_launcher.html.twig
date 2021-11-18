@@ -1,0 +1,156 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %} {% block content%}
+<div style="width:96%;margin:auto;margin-top: 30px;">
+	<h1 style="color: blue; width: 100%; text-align: center;">SWMM:</h1>
+	<h2 style="color: #FEBA00;">Launch a new simulation:</h2>
+		{% if inhtml %}
+			<div>
+				{{inhtml}}
+			</div>
+			<div>
+          		<a href="/use/tools/swmm/refresh"><button class="btn btn-default btn-lg btn-block""> Refresh the log </button></a>
+          	</div>
+          	
+		{% else %}
+			<div style="float: left;">
+          		<a href="/use/tools/swmm/refresh"><button class="btn btn-default""> Check the previous simulation </button></a>
+          	</div></br>
+			{{ form_start(form_ref, {'attr': {'class': 'form-horizontal'}}) }}
+		    {{ form_errors(form_ref) }}
+        	<h3 style="color: green;">For the geometry:</h3>
+        	<p>please upload your geometry using two .txt files or a .mat files, one file defining the junctions <b>[x y parameters]</b> and another file defining the conduits that link the junctions <b>[x1 y1 x2 y2 parameters]</b> in 2D . <a href="{{asset(file_seg)}}" target=_blank>Click Here</a> to download an example.</p>
+        	<p style="color:green;">{{msg}}</p>
+        	<p style="color:red;">{{msg_err}}</p>
+            <div class="form-group">
+		        {{ form_label(form_ref.file, "Load the conduits:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+		        {{ form_errors(form_ref.file) }}
+		        <div class="col-sm-10">
+		            {{ form_widget(form_ref.file, {'attr': {'class': 'form-control'}}) }}
+		        </div>
+
+            
+            {{ form_label(form_ref.file2, "Load the junctions:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form_ref.file2) }}
+            <div class="col-sm-10">
+                {{ form_widget(form_ref.file2, {'attr': {'class': 'form-control'}}) }}
+            </div>
+		    </div>
+		    
+        	<h3 style="color: green;">For the flow:</h3>
+           
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="YTFfit">YTFfit: </label>
+                <div class="col-sm-10">
+                    <select name="YTFfit" id="YTFfit" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>                          
+                        
+                    </select>
+                </div>
+            </div><div class="form-group">
+                <label class="control-label col-sm-2" for="YDYNIA">YDYNIA: </label>
+                <div class="col-sm-10">
+                    <select name="YDYNIA" id="YDYNIA" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>                          
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="Rainfall">Rainfall: </label>
+                <div class="col-sm-10">
+                    <select name="Rainfall" id="Rainfall" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>                          
+                        
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="inflow_velocity">Inflow velocity (m/s): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="inflow_velocity" id="inflow_velocity" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="influx"> Influx points ([x y]): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="influx" id="influx" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="outflux"> Outflux points ([x y]): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="outflux" id="outflux" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="TimeOfInjection"> TimeOfInjection (days): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="TimeOfInjection" id="TimeOfInjection" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="EndSimulation"> EndSimulation (days): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="EndSimulation" id="EndSimulation" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="time-step">Time step (MM:SS): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="time-step" id="time-step" required/>
+                </div>
+            </div>
+            
+          <div class="form-group" hidden="true">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.cONTENT, "Content:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+			    {# Affichage des erreurs pour ce champ précis. #}
+			    {{ form_errors(form_ref.cONTENT) }}
+
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.cONTENT, {'attr': {'class': 'form-control','rows':'10'}}) }}
+			        <a style="float: right" href="/use/tools/swmm"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		   <div class="form-group">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.save, "Launch the simulation:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.save, {'attr': {'class': 'btn btn-primary'}}) }}
+			        <a style="float: right" href="/use/tools/swmm"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		    
+          	{{ form_end(form_ref) }}
+        {% endif %}
+          	{% if file_path %}
+          	<div>
+          		<a href="{{asset(file_path)}}" target=_blank><button class="btn btn-success btn-lg btn-block""> Download the results </button></a>
+          	</div>
+          	<div style="width: 60%;margin:auto;margin-top: 50px;">
+          		<a href="/use/tools/swmm"><button class="btn btn-warning btn-lg btn-block""> Do a new simulation </button></a>
+          	</div>
+          	{% endif %}
+            {% if inhtml %}
+              <div style="width: 60%;margin: auto;">
+                <img src="{{asset(res_img_path)}}" style="width:100%;">
+              </div>
+            {% endif %}
+
+
+</div>
+{% endblock %}

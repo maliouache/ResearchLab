@@ -1,0 +1,132 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %} 
+{% block content%}
+<div style="width:96%;margin:auto;margin-top: 30px;">
+	<h1 style="color: blue; width: 100%; text-align: center;">Hydraulic Tomography:</h1>
+	<h2 style="color: #FEBA00;">Launch a new inversion:</h2>
+		{% if inhtml %}
+			<div>
+				{{inhtml}}
+			</div>
+			<div>
+          		<a href="/use/tools/ht/refresh"><button class="btn btn-default btn-lg btn-block""> Refresh the log </button></a>
+          	</div>
+          	
+		{% else %}
+			<div style="float: left;">
+          		<a href="/use/tools/ht/refresh"><button class="btn btn-default""> Check the previous interpretation </button></a>
+          	</div></br>
+			{{ form_start(form_ref, {'attr': {'class': 'form-horizontal'}}) }}
+		    {{ form_errors(form_ref) }}
+        	<h3 style="color: green;">Flow meter data:</h3>
+        	<p>please upload your pumping test data using a .zip file or a .rar file. <b>[Please respect similar set up of data as in the example below]</b>. <a href="{{asset(file_seg)}}" target=_blank>Click Here</a> to downlad an example of the data format.</p>
+        	<p style="color:green;">{{msg}}</p>
+        	<p style="color:red;">{{msg_err}}</p>
+            <div class="form-group">
+		        {{ form_label(form_ref.file, "Load the data:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+		        {{ form_errors(form_ref.file) }}
+		        <div class="col-sm-10">
+		            {{ form_widget(form_ref.file, {'attr': {'class': 'form-control'}}) }}
+		        </div>
+		    </div>
+		    
+        	<h3 style="color: green;">For the inputs:</h3>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="Tinitial">Initial transmissivity (log([m/s])): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="Tinitial" id="Tinitial" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="SigmaCovariance">Standard deviation: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="SigmaCovariance" id="SigmaCovariance" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="Lx">Correlation length Lx: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="Lx" id="Lx" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="Ly">Correlation length Ly: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="Ly" id="Ly" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="nx">nx: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="nx" id="nx" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="ny">ny: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="ny" id="ny" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <p>The sampled times consist on selecting observations at given times manually in seconds. ex:<b>[50 100 200 500 2000 4000]</b>. Or use a uniforme discretization tinintial:timestep:tfinal ex:<b>50:100:1000</p>
+                <label class="control-label col-sm-2" for="Tm">Sampled times: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="Tm" id="Tm" required/>
+                </div>
+            </div>
+            
+          <div class="form-group" hidden="true">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.cONTENT, "Content:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+			    {# Affichage des erreurs pour ce champ précis. #}
+			    {{ form_errors(form_ref.cONTENT) }}
+          {{ form_label(form_ref.file2, "Load the junctions:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form_ref.file2) }}
+            <div class="col-sm-10">
+                {{ form_widget(form_ref.file2, {'attr': {'class': 'form-control'}}) }}
+            </div>
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.cONTENT, {'attr': {'class': 'form-control','rows':'10'}}) }}
+			        <a style="float: right" href="/use/tools/ht"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		   <div class="form-group">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.save, "Launch the simulation:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.save, {'attr': {'class': 'btn btn-primary'}}) }}
+			        <a style="float: right" href="/use/tools/ht"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		    
+          	
+          	{{ form_end(form_ref) }}
+        {% endif %}
+          	{% if file_path %}
+          	<div>
+          		<a href="{{asset(file_path)}}" target=_blank><button class="btn btn-success btn-lg btn-block""> Download the results </button></a>
+          	</div>
+          	<div style="width: 60%;margin:auto;margin-top: 50px;">
+          		<a href="/use/tools/ht"><button class="btn btn-warning btn-lg btn-block""> Do a new inversion </button></a>
+          	</div>
+          	{% endif %}
+            {% if inhtml %}
+              <div style="width: 60%;margin: auto;">
+                <img src="{{asset(res_img_path)}}" style="width:100%;">
+              </div>
+            {% endif %}
+
+
+</div>
+{% endblock %}

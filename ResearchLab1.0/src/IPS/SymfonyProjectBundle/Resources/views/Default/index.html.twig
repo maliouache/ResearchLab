@@ -1,0 +1,36 @@
+<html>
+
+<head>
+	<title>ResearchLab Project</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style type="text/css">
+	body {
+		background-color: #bfc1cca6;
+	}
+</style>
+
+<body style="text-align:center;background-image: url('https://images5.alphacoders.com/337/337954.png');">
+	<div style="height: 100%;padding-top: 5%;padding-left: 30%">
+		<a href="/">
+			<img alt="Actualiser" src="https://www.pngarts.com/files/1/Qualitative-PNG-High-Quality-Image.png" width="180px" height="250px">
+		</a>
+		<div style="width:35%;margin:auto;">
+			<h2 style="color:#40A457">Welcome to ResearchLab</h2>
+			<a href="/login">
+				<button class="btn btn-dark btn-lg btn-block">Login</button>
+			</a>
+			</br>
+			{% block fos_content%}{% endblock %}
+			</br>
+			<a href="/register">
+				<button class="btn btn-dark btn-lg btn-block">Create user</button>
+			</a>
+		</div>
+	</div>
+</body>
+
+</html>

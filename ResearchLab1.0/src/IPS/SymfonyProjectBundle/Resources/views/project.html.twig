@@ -1,0 +1,89 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+        <div class="btn-group" style="width: 100%;">
+            <a href="/show/project/{{project.ID}}"><button type="button" class="btn btn-default"><h3>{{project.NAME}}</h3></button></a>
+        </div>
+        <!-- <ul> -->
+        <!-- <div class="btn-group-vertical"> -->
+        {% for section in sections %}
+            <!-- <li> -->
+                <button type="button" class="btn btn-dark btn-block" data-toggle="collapse" data-target="#demo{{section.ID}}">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td width="50%"><b>{{section.NAME}}</b></td>
+                                <td width="30%">
+                                    {% if section.STATUT<=24 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                            {{section.STATUT}}% Complete
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if section.STATUT>=24 and section.STATUT<=49 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                            {{section.STATUT}}% Complete
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if section.STATUT<=99 and section.STATUT>=50 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                            {{section.STATUT}}% Complete
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if section.STATUT==100 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                            {{section.STATUT}}% Complete
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </td>
+                                <td width="20%">{{section.IMPORTANCE}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </button>
+                <div id="demo{{section.ID}}" class="collapse">
+                    
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td width="50%">Statut: <b>{{section.STATUT}}</b></br>
+                                  {{section.COMMENT}}</br>
+                                      <a href="/show/section/{{section.ID}}" class="button3 " style="margin-right: 20px;width: 90%;margin-bottom: 3px;">See the details of the section</a>
+                                      <a href="/add/task/{{section.ID}}" class="button3" style="margin-right: 20px;width: 90%;margin-bottom: 3px;">Add a new task</a>
+                                      <a href="#" class="button3 " style="margin-right: 20px;width: 90%;margin-bottom: 3px;">Here a new option to do in the section</a>
+                                      <a href="/section/references/{{section.ID}}" class="button3 " style="margin-right: 20px;width: 90%;margin-bottom: 3px;" >References/Bibliography</a>
+                                </td>
+                                <td width="50%"><b>Tasks list:</b></br>
+                                  {% for task in section.tasks %}
+                                      {% if task.STATUT==100 %}
+                                        <a href="/show/task/{{task.ID}}"><button class="btn btn-success btn-sm btn-block" style="overflow: hidden;">{{task.NAME}}</button></a>
+                                        {% elseif task.STATUT==50 %}
+                                        <a href="/show/task/{{task.ID}}"><button class="btn btn-warning btn-sm btn-block" style="overflow: hidden;">{{task.NAME}}</button></a>
+                                        {% else %}
+                                        <a href="/show/task/{{task.ID}}"><button class="btn btn-danger btn-sm btn-block" style="overflow: hidden;">{{task.NAME}}</button></a>
+                                        {% endif %}
+                                      <!-- =>{{task.INCHARGE}}<div style="float:right;"><img {% if task.STATUT==0 %} src="https://cdn2.iconfinder.com/data/icons/seo-web-optomization-ultimate-set/512/time_efficiency-512.png"{% endif %} {% if task.STATUT==100 %} src="http://hddfhm.com/images/check-mark-clipart-9.png"{% endif %} height="15px" width="15px" alt="progress"/></div></br> -->
+                                {% endfor %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="width: 100%;padding: 2px"></div>
+            <!-- </li> -->
+        {% endfor %}
+        <a href="/add/section/{{project.ID}}" class="button2 btn-block" style="width: 50%;margin-left: 25%; margin-top: 30px;">Add a new section</a>
+        <!-- </div> -->
+        <!-- </ul> -->
+
+  {% endblock %}

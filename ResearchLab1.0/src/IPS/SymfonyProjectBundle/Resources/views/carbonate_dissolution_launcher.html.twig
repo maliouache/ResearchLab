@@ -1,0 +1,138 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %} {% block content%}
+<div style="width:96%;margin:auto;margin-top: 30px;">
+	<h1 style="color: blue; width: 100%; text-align: center;">Carbonates Dissolution - Aperture growth:</h1>
+	<h2 style="color: #FEBA00;">Launch a new simulation:</h2>
+		{% if inhtml %}
+			<div>
+				{{inhtml}}
+			</div>
+			<div>
+          		<a href="/use/tools/carbonate_dissolution/refresh"><button class="btn btn-default btn-lg btn-block""> Refresh the log </button></a>
+          	</div>
+          	
+		{% else %}
+			<div style="float: left;">
+          		<a href="/use/tools/carbonate_dissolution/refresh"><button class="btn btn-default""> Check the previous simulation </button></a>
+          	</div></br>
+			{{ form_start(form_ref, {'attr': {'class': 'form-horizontal'}}) }}
+		    {{ form_errors(form_ref) }}
+        	<h3 style="color: green;">For the geometry:</h3>
+        	<p>please upload your geometry using a .txt file or a .mat file, each segment corresponds to a line in the matrix. the line is structures this way <b>[x1 y1 x2 y2 aperture]</b> in 2D or <b>[x1 y1 z1 x2 y2 z2 aperture]</b>	 in 3D. <a href="{{asset(file_seg)}}" target=_blank>Click Here</a> to downlad an example of the segments format in 2D.</p>
+        	<p style="color:green;">{{msg}}</p>
+        	<p style="color:red;">{{msg_err}}</p>
+            <div class="form-group">
+		        {{ form_label(form_ref.file, "Load the segments:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+		        {{ form_errors(form_ref.file) }}
+		        <div class="col-sm-10">
+		            {{ form_widget(form_ref.file, {'attr': {'class': 'form-control'}}) }}
+		        </div>
+		    </div>
+		    
+        	<h3 style="color: green;">For the flow:</h3>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="inlet-head">Head in the inlet: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="inlet-head" id="inlet-head" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="outlet-head">Head in the outlet: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="outlet-head" id="outlet-head" required/>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="materials">Materials: </label>
+                <div class="col-sm-10">
+                    <select name="materials" id="materials" class="form-control">
+                        <option value="water">Water</option>                        
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="flow-direction">Direction of the flow: </label>
+                <div class="col-sm-10">
+                    <select name="flow-direction" id="flow-direction" class="form-control">
+                        <option value="x-direction">X-Direction</option>
+                        <option value="y-direction">Y-Direction</option>
+                        <option value="z-direction">Z-Direction</option>
+                        
+                    </select>
+                </div>
+            </div>
+           	<h3 style="color: green;">For the dissolution:</h3>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="num-iterations">Number of iterations: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="num-iterations" id="num-iterations" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="kinetics"> Kinetics (): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="kinetics" id="kinetics" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="time-step">Time step (in seconds): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="time-step" id="time-step" required/>
+                </div>
+            </div>
+            
+          <div class="form-group" hidden="true">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.cONTENT, "Content:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+			    {# Affichage des erreurs pour ce champ précis. #}
+			    {{ form_errors(form_ref.cONTENT) }}
+          {{ form_label(form_ref.file2, "Load the junctions:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form_ref.file2) }}
+            <div class="col-sm-10">
+                {{ form_widget(form_ref.file2, {'attr': {'class': 'form-control'}}) }}
+            </div>
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.cONTENT, {'attr': {'class': 'form-control','rows':'10'}}) }}
+			        <a style="float: right" href="/use/tools/carbonate_dissolution"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		   <div class="form-group">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.save, "Launch the simulation:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.save, {'attr': {'class': 'btn btn-primary'}}) }}
+			        <a style="float: right" href="/use/tools/carbonate_dissolution"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		    
+          	
+          	{{ form_end(form_ref) }}
+        {% endif %}
+          	{% if file_path %}
+          	<div>
+          		<a href="{{asset(file_path)}}" target=_blank><button class="btn btn-success btn-lg btn-block""> Download the results </button></a>
+          	</div>
+          	<div style="width: 60%;margin:auto;margin-top: 50px;">
+          		<a href="/use/tools/carbonate_dissolution"><button class="btn btn-warning btn-lg btn-block""> Do a new simulation </button></a>
+          	</div>
+          	{% endif %}
+            {% if inhtml %}
+              <div style="width: 60%;margin: auto;">
+                <img src="{{asset(res_img_path)}}" style="width:100%;">
+              </div>
+            {% endif %}
+
+
+</div>
+{% endblock %}

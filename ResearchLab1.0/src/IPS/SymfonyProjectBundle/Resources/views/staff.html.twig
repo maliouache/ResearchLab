@@ -1,0 +1,26 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+<h3 style="color: #FEBA00;">Staff list:</h3></br>
+<table style="text-align: center;vertical-align: middle; width:100%">
+    {% for person in staff%}
+	    <tr>
+	    	<td width="15%">{{person.username}}</td>
+	    	<td width="25%"> {{person.email}}</td>
+	    	<form method="post" action="/staff/edit/{{person.username}}">
+		    	<td width="15%">
+		    		<select name="new_role">
+		    			<option value="ROLE_" {% if person.roles[0]=="" %} selected="true" {% endif %}></option>
+		    			<option value="ROLE_INTERN" {% if person.roles[0]=="ROLE_INTERN" %} selected="true" {% endif %}>Intern student</option>
+		    			<option value="ROLE_PHD" {% if person.roles[0]=="ROLE_PHD" %} selected="true" {% endif %}>PHD student</option>
+		    			<option value="ROLE_RESEARCH" {% if person.roles[0]=="ROLE_RESEARCH" %} selected="true" {% endif %}>Researcher</option>
+		    			<option value="ROLE_MANAGER" {% if person.roles[0]=="ROLE_MANAGER" %} selected="true" {% endif %}>Project manager</option>
+		    			<option value="ROLE_SUPER_ADMIN" {% if person.roles[0]=="ROLE_SUPER_ADMIN" %} selected="true" {% endif %}>Admin</option>
+		    		</select> 
+		    	</td>
+		    	<td width="10%"><button type="submit" class="btn btn-warning">Change</td>
+		    </form>
+	    	<td width="30%"><a href="/staff/remove/{{person.username}}" style="float:right;" onclick="return confirm('are u sure?')"><button class="btn btn-danger">Remove</button></a></td>
+	    </tr>
+    {%endfor%}
+</table>
+{% endblock %}

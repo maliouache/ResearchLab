@@ -1,0 +1,82 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %} {% block content%}
+<div style="width:60%;margin:auto;margin-top: 30px;">
+<a href="/use/tools/particle_tracing"><button class="btn btn-default btn-lg btn-block" style="color: blue;">Particle Tracing in DFNs</br>
+	<div style="margin: auto;margin-top: 10px;">
+		<video autoplay="autoplay" loop width="300px" height="180px">
+	  	<source src="{{asset('bundles/IPS/vid/example_real_dfn.mp4')}}" type="video/mp4">
+		</video>
+	</div> 
+</button></a>
+</div>
+
+</br>
+
+<div style="width:60%;margin:auto;margin-top: 30px;">
+<a href="/use/tools/ht"><button class="btn btn-default btn-lg btn-block" style="color: blue;"> Hydraulic Tomography </br>
+	<div style="margin: auto;margin-top: 10px;">
+		<div width="500px" height="180px">
+	  	<img src="{{asset('bundles/IPS/imgs/HT.png')}}" style="width: 450px;height: 180px;" />
+		</div>
+	</div> 
+</button></a>
+</div>
+
+<div style="width:60%;margin:auto;margin-top: 30px;">
+<a href="/use/tools/carbonate_dissolution"><button class="btn btn-default btn-lg btn-block" style="color: blue;">Carbonate dissolution in single fracture</br>
+	<div style="margin: auto;margin-top: 10px;">
+		<video autoplay="autoplay" loop width="300px" height="180px">
+	  	<source src="{{asset('bundles/IPS/vid/example_synt_dfn.mp4')}}" type="video/mp4">
+		</video>
+		<video autoplay="autoplay" loop width="300px" height="180px">
+	  	<source src="{{asset('bundles/IPS/vid/example_synt_dfn_2.mp4')}}" type="video/mp4">
+		</video>
+	</div> 
+</button></a>
+</div>
+
+
+<div style="width:60%;margin:auto;margin-top: 30px;">
+<a href="/use/tools/swmm"><button class="btn btn-default btn-lg btn-block" style="color: blue;"> SWMM </br>
+	<div style="margin: auto;margin-top: 10px;">
+		<div width="300px" height="180px">
+	  	<img src="{{asset('bundles/IPS/imgs/swmm_plot.png')}}" style="width: 300px;height: 180px;" />
+		</div>
+	</div> 
+</button></a>
+</div>
+
+
+
+</br>
+<div style="width:60%;margin:auto;margin-top: 30px;">
+<a href="/use/tools/pressure_plot"><button class="btn btn-default btn-lg btn-block" style="color: blue;">Drawdown plot</br>
+	<div style="margin: auto;margin-top: 10px;">
+		<div width="300px" height="180px">
+	  	<img src="{{asset('bundles/IPS/imgs/pressure_plot.png')}}" style="width: 300px;height: 180px;" />
+		</div>
+	</div> 
+</button></a>
+</div>
+
+</br>
+<div style="width:60%;margin:auto;margin-top: 30px;">
+<a href="/use/tools/flowmeter_interp"><button class="btn btn-default btn-lg btn-block" style="color: blue;">Flowmeter interpretation</br>
+	<div style="margin: auto;margin-top: 10px;">
+		<div width="300px" height="180px">
+	  	<img src="{{asset('bundles/IPS/imgs/flowmeter_interp.png')}}" style="width: 500px;height: 180px;" />
+		</div>
+	</div> 
+</button></a>
+</div>
+
+</br>
+<div style="width:60%;margin:auto;margin-top: 30px;">
+<a href="/use/tools/highcharts_php"><button class="btn btn-default btn-lg btn-block" style="color: blue;">Highcharts plots</br>
+	<div style="margin: auto;margin-top: 10px;">
+		<div width="300px" height="180px">
+	  	<img src="{{asset('bundles/IPS/imgs/highcharts.png')}}" style="width: 500px;height: 180px;" />
+		</div>
+	</div> 
+</button></a>
+</div>
+{% endblock %}

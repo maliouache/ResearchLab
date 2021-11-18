@@ -1,0 +1,213 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+<div style="margin-top: 50px;width: 100%;">
+<h3>Tasks:</h3></br>
+    {% for mytask in tasks|reverse %}
+    <div style="width:50%;margin:auto;float: left;height: 50px;padding: auto;">
+        
+        {% if mytask.STATUT==100 %}
+        <a href="/show/task/{{mytask.ID}}"><button class="btn btn-success btn-lg btn-block" style="overflow: hidden;">{{mytask.NAME}}</button></a>
+        {% elseif mytask.STATUT==50 %}
+        <a href="/show/task/{{mytask.ID}}"><button class="btn btn-warning btn-lg btn-block" style="overflow: hidden;">{{mytask.NAME}}</button></a>
+        {% else %}
+        <a href="/show/task/{{mytask.ID}}"><button class="btn btn-danger btn-lg btn-block" style="overflow: hidden;">{{mytask.NAME}}</button></a>
+        {% endif %}
+    </div>
+    {%endfor%}
+</div>
+<div style="clear: both;">
+<h3>Sections:</h3></br>
+{% for section in sections %}
+            <!-- <li> -->
+                <button type="button" class="btn btn-dark btn-block" data-toggle="collapse" data-target="#demo{{section.ID}}">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td width="50%"><b>{{section.NAME}}</b></td>
+                                <td width="30%">
+                                    {% if section.STATUT<=24 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                            {{section.STATUT}}% Complete
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if section.STATUT>=25 and section.STATUT<=49 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                            {{section.STATUT}}% Complete
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if section.STATUT<=99 and section.STATUT>=50 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                            {{section.STATUT}}% Complete
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if section.STATUT==100 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                            {{section.STATUT}}% Complete
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </td>
+                                <td width="20%">{{section.IMPORTANCE}}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </button>
+                <div id="demo{{section.ID}}" class="collapse">
+                    
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td width="50%">Statut: <b>{{section.STATUT}}</b></br>
+                                  {{section.COMMENT}}</br>
+                                      <a href="/show/section/{{section.ID}}" class="button3 " style="margin-right: 20px;width: 90%;margin-bottom: 3px;">See the details of the section</a>
+                                      <a href="/add/task/{{section.ID}}" class="button3" style="margin-right: 20px;width: 90%;margin-bottom: 3px;">Add a new task</a>
+                                      <a href="#" class="button3 " style="margin-right: 20px;width: 90%;margin-bottom: 3px;">Here a new option to do in the section</a>
+                                      <a href="/section/references/{{section.ID}}" class="button3 " style="margin-right: 20px;width: 90%;margin-bottom: 3px;" >References/Bibliography</a>
+                                </td>
+                                <td width="50%"><b>Tasks list:</b></br>
+                                  {% for task in section.tasks %}
+                                      {% if task.STATUT==100 %}
+                                        <a href="/show/task/{{task.ID}}"><button class="btn btn-success btn-sm btn-block" style="overflow: hidden;">{{task.NAME}}</button></a>
+                                        {% elseif task.STATUT==50 %}
+                                        <a href="/show/task/{{task.ID}}"><button class="btn btn-warning btn-sm btn-block" style="overflow: hidden;">{{task.NAME}}</button></a>
+                                        {% else %}
+                                        <a href="/show/task/{{task.ID}}"><button class="btn btn-danger btn-sm btn-block" style="overflow: hidden;">{{task.NAME}}</button></a>
+                                        {% endif %}
+                                      <!-- =>{{task.INCHARGE}}<div style="float:right;"><img {% if task.STATUT==0 %} src="https://cdn2.iconfinder.com/data/icons/seo-web-optomization-ultimate-set/512/time_efficiency-512.png"{% endif %} {% if task.STATUT==100 %} src="http://hddfhm.com/images/check-mark-clipart-9.png"{% endif %} height="15px" width="15px" alt="progress"/></div></br> -->
+                                {% endfor %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="width: 100%;padding: 2px"></div>
+            <!-- </li> -->
+        {% endfor %}
+</div>
+<div style="">
+<h3>Projects:</h3></br>
+    <div class="panel-group">
+        {% for project in projects %}
+        <div class="panel panel-primary">
+            <div class="panel-heading"><a href="/show/project/{{project.ID}}"><b style="color:black;">{{project.NAME}}</b></a></div>
+            <div class="panel-body">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                            <td width="70%">
+                                <b>Total Progress: </b>
+                                {% if project.progress<=24 %}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{project.progress}}"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                        {{project.progress}}% Complete
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if project.progress>=24 and project.progress<=49 %}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{project.progress}}"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                        {{project.progress}}% Complete
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if project.progress<=99 and project.progress>=50 %}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{project.progress}}"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                        {{project.progress}}% Complete
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if project.progress==100 %}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{project.progress}}"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                        {{project.progress}}% Complete
+                                    </div>
+                                </div>
+                                {% endif %}</br>
+                                {{project.COMMENT}}
+                            </td>
+                          <td width="30%">
+                            <!-- <div class="btn-group-vertical"> -->
+                              <a href="/show/project/{{project.ID}}" class="button2 btn-block">See the sections</a>
+                              <a href="/add/section/{{project.ID}}" class="button2 btn-block">Add a new section</a>
+                              <a href="/add/member/{{project.ID}}" class="button2 btn-block">Add members</a>
+                              <a href="#" class="button2 btn-block">Here a new option</a>
+                              <a href="/project/references/{{project.ID}}" class="button2 btn-block">References/Bibliography</a>
+                            <!-- </div> -->
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+            </div>
+        </div>
+        </br>
+        {% endfor %}
+    </div>
+</div>
+<div style="word-wrap:break-word;">
+    <h3>Works:</h3></br>
+        {% for work in works %}
+            {% if work.TYPE=='file' %}
+                {% set names=work.URL|split('/') %}
+                {% if work.URL matches '{.+\.pdf$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://ressources.blogdumoderateur.com/2013/07/pdf-240x240.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.pptx$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://www.freeiconspng.com/uploads/microsoft-powerpoint-document-icon-4.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.mp4$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="http://www.free-icons-download.net/images/mp4-format-icons-45083.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.xlsx$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://images.interactives.dk/files/bonnier-kom/pictures/url.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.docx$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://www.file-extensions.org/imgs/articles/4/392/word-logo.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.mph$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://pbs.twimg.com/profile_images/526835078580539392/u9Rcut4K_400x400.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.rar$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://store.musicofnature.com/wp-content/uploads/2016/02/zip1.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.png$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="{{asset(work.URL)}}" style="height: 100%;width: 100%;"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.jpg$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="{{asset(work.URL)}}" style="height: 100%;width: 100%;"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.jpeg$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="{{asset(work.URL)}}" style="height: 100%;width: 100%;"><br>{{names|last}}</div></a>
+                {% elseif work.URL matches '{.+\.zip$}' %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://store.musicofnature.com/wp-content/uploads/2016/02/zip1.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+                {% else %}
+                    <a href="{{asset(work.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://cdn4.iconfinder.com/data/icons/flatified/512/file.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+                {% endif%}
+            {% else %}
+                <a href="/show/work/{{work.ID}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://cdn4.iconfinder.com/data/icons/flatified/512/file.png" height="75px" width="65px"><br>See Work</div></a>
+            {% endif %}
+        {% endfor %}
+</div>
+<div style="clear:both;">
+    <h3>References:</h3></br>
+    {% for reference in references%}
+    {% set names=reference.URL|split('/') %}
+        {% if reference.URL matches '{.+\.pdf$}' %}
+            <a href="{{asset(reference.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://ressources.blogdumoderateur.com/2013/07/pdf-240x240.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+        {% elseif reference.URL matches '{.+\.pptx$}' %}
+            <a href="{{asset(reference.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://www.freeiconspng.com/uploads/microsoft-powerpoint-document-icon-4.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+        {% elseif reference.URL matches '{.+\.rar$}' %}
+            <a href="{{asset(reference.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://store.musicofnature.com/wp-content/uploads/2016/02/zip1.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+        {% else %}
+            <a href="{{asset(reference.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://cdn4.iconfinder.com/data/icons/flatified/512/file.png" height="75px" width="65px"><br>{{names|last}}</div></a>
+        {% endif%}
+    {% endfor %}
+    
+</div>
+{% endblock %}

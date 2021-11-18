@@ -1,0 +1,183 @@
+ips_symfony_project_homepage:
+    path:     /
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:index }
+
+go_to_home:
+    path:     /home
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:home }
+
+create_new_project:
+    path: /create/project
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:newproject }
+
+submit_new_project:
+    path: /save/project
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:saveproject }
+
+show_projects:
+    path: /projects
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showprojects }
+
+edit_projects:
+    path: /edit/projects
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:editprojects }
+
+edit_project:
+    path: /edit/project/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:editproject }
+
+update_project:
+    path: /update/project/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:updateproject }
+
+delete_project:
+    path: /delete/project/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:deleteproject }
+
+create_new_section:
+    path: /add/section/{proj}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:addsection }
+
+add_new_member:
+    path: /add/member/{proj}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:addmember }
+
+remove_member:
+    path: /remove/member/{proj}/{memb}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:removemember }
+
+submit_new_section:
+    path: /save/section
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:savesection }
+
+show_project:
+    path: /show/project/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showproject }
+
+create_new_task:
+    path: /add/task/{sect}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:addtask }
+
+submit_new_task:
+    path: /save/task
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:savetask }
+
+create_new_reference:
+    path: /add/reference/{task_id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:addreference }
+
+create_new_work:
+    path: /add/work/{task_id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:addwork }
+
+show_task:
+    path: /show/task/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showtask }
+
+show_work:
+    path: /show/work/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showwork }
+
+show_section:
+    path: /show/section/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showsection }
+
+end_task:
+    path: /end/task/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:endtask }
+
+my_tasks:
+    path: /show/mytasks
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:mytasks }
+
+staff:
+    path: /staff
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:staff }
+
+remove_staff_by_username:
+    path: /staff/remove/{username}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:deletestaff }
+
+ref_proj:
+    path: /project/references/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showreferencesproject }
+
+ref_sec:
+    path: /section/references/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showreferencessection }
+
+edit_staff_by_username:
+    path: /staff/edit/{username}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:editstaff }
+
+show_tools:
+    path: /show/tools
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showtools }
+
+use_tools:
+    path: /use/tools
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:usetools }
+
+use_tools_particle_tracing:
+    path: /use/tools/particle_tracing
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:useparticletracingtool }
+
+use_tools_particle_tracing_refresh:
+    path: /use/tools/particle_tracing/refresh
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:useparticletracingtoolrefresh }
+
+delete_task:
+    path: /delete/task/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:deletetask }
+
+delete_section:
+    path: /delete/section/{id}
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:deletesection }
+
+result_search:
+    path: /show/search
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showsearch }
+
+use_tools_carbonate_dissolution:
+    path: /use/tools/carbonate_dissolution
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:usecarbonatedissolutiontool }
+
+use_tools_carbonate_dissolution_refresh:
+    path: /use/tools/carbonate_dissolution/refresh
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:usecarbonatedissolutiontoolrefresh }
+
+use_tools_flowmeter_interp:
+    path: /use/tools/flowmeter_interp
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:useflowmeterinterptool }
+
+use_tools_flowmeter_interp_refresh:
+    path: /use/tools/flowmeter_interp/refresh
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:useflowmeterinterptoolrefresh }
+
+use_tools_pressure_plot:
+    path: /use/tools/pressure_plot
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:usepressureplottool }
+
+use_tools_pressure_plot_refresh:
+    path: /use/tools/pressure_plot/refresh
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:usepressureplottoolrefresh }
+
+use_tools_sswm:
+    path: /use/tools/swmm
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:useswmmtool }
+
+use_tools_sswm_refresh:
+    path: /use/tools/swmm/refresh
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:useswmmtoolrefresh }
+
+use_tools_HT:
+    path: /use/tools/ht
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:usehttool }
+
+use_tools_HT_refresh:
+    path: /use/tools/ht/refresh
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:usehttoolrefresh }
+
+highcharts_php:
+    path: /use/tools/highcharts_php
+    defaults: { _controller: IPSSymfonyProjectBundle:Default:showhighchart }

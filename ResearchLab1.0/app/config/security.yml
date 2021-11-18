@@ -1,0 +1,65 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        main:
+            id: fos_user.user_provider.username
+        in_memory:
+            memory: ~
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            anonymous: true
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            #form_login: ~
+            form_login:
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+            logout:
+                path: fos_user_security_logout
+                target: fos_user_security_login
+            remember_me:
+                secret: %secret% # %secret% est un paramètre de parameter
+
+    role_hierarchy:
+        ROLE_INTERN: ROLE_USER
+        ROLE_PHD: ROLE_INTERN
+        ROLE_RESEARCH: ROLE_PHD 
+        ROLE_MANAGER: ROLE_RESEARCH
+        ROLE_SUPER_ADMIN: [ROLE_MANAGER, ROLE_ALLOWED_TO_SWITCH]
+            
+    encoders:
+        ResearchLabUserBundle\Entity\User: sha512
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/create, roles: ROLE_PHD }
+        - { path: ^/add/work, roles: ROLE_INTERN }
+        - { path: ^/add/reference, roles: ROLE_INTERN }
+        - { path: ^/add/task, roles: ROLE_PHD }
+        - { path: ^/add/section, roles: ROLE_PHD }
+        - { path: ^/edit/project, roles: ROLE_PHD }
+        - { path: ^/update/project, roles: ROLE_PHD }
+        - { path: ^/delete/project, roles: ROLE_RESEARCH }
+        - { path: ^/delete/section, roles: ROLE_PHD }
+        - { path: ^/edit/section, roles: ROLE_PHD }
+        - { path: ^/delete/task, roles: ROLE_PHD }
+        - { path: ^/edit/task, roles: ROLE_PHD }
+        - { path: ^/save, roles: ROLE_PHD }
+        - { path: ^/update/section, roles: ROLE_PHD }
+        - { path: ^/update/task, roles: ROLE_PHD }
+        - { path: ^/staff, roles: ROLE_MANAGER }
+        - { path: ^/show, roles: ROLE_INTERN }

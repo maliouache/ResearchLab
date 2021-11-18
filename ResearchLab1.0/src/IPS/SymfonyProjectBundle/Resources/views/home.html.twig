@@ -1,0 +1,27 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+<div style="width: 50%;margin: auto;margin-top: 120px;">
+	<h1 style="color: #FEBA00;">
+	  Welcome</h1>
+	<p>here we go for the new symfony project to organize research !!!!!</p>
+	<p><a href="/show/mytasks"><button class="btn btn-warning btn-lg btn-block">Check my tasks</button></a></p>
+</div>
+<div style="width: 50%;margin: auto;margin-top: 120px;">
+	<h1 style="color: #FEBA00;">
+	  Updates</h1>
+	<p>here are the updated tasks you added</p>
+	{% for mytask in mytasks|reverse %}
+    </br>
+    <div style="width:60%;margin:auto;">
+        
+        {% if mytask.STATUT==100 %}
+        <a href="/show/task/{{mytask.ID}}"><button class="btn btn-success btn-lg btn-block">{{mytask.NAME}}</button></a>
+        {% elseif mytask.STATUT==50 %}
+        <a href="/show/task/{{mytask.ID}}"><button class="btn btn-warning btn-lg btn-block">{{mytask.NAME}}</button></a>
+        {% else %}
+        <a href="/show/task/{{mytask.ID}}"><button class="btn btn-danger btn-lg btn-block">{{mytask.NAME}}</button></a>
+        {% endif %}
+    </div>
+    {%endfor%}
+</div>
+{% endblock %}

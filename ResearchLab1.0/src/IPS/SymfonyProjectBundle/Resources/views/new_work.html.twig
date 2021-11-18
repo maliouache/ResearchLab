@@ -1,0 +1,46 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+        <h1 style="color: #FEBA00;">Submit a new work:</h1><a href="/show/task/{{task_parent}}" style="float:right;"><button class="btn btn-default">Go back to the task</button></a></br></br>
+        <p style="color:green;">{{msg}}</p>
+        {{ form_start(form_ref, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form_ref) }}
+        <div class="form-group">
+        {# Génération du label. #}
+        {{ form_label(form_ref.cONTENT, "Content HTML:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form_ref.cONTENT) }}
+    
+        <div class="col-sm-10">
+            {# Génération de l'input. #}
+            {{ form_widget(form_ref.cONTENT, {'attr': {'class': 'form-control','rows':'10'}}) }}
+        </div>
+        </div>
+        <div class="form-group">
+        <button type="button" class="btn btn-default" onclick="decodeHtml_add()" style="float:right;">Construct HTML</button>
+        </div>
+    
+        {# Idem pour un autre champ. #}
+        <div class="form-group">
+            {{ form_label(form_ref.file, "Or Upload a file:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form_ref.file) }}
+            <div class="col-sm-10">
+                {{ form_widget(form_ref.file, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {{ form_widget(form_ref.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+
+        <div class="form-group" hidden="true">
+            {{ form_errors(form_ref.cONTENT) }}
+            {{ form_label(form_ref.file2, "Load the junctions:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form_ref.file2) }}
+            <div class="col-sm-10">
+                {{ form_widget(form_ref.file2, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {{ form_end(form_ref) }}
+
+        </br>
+        <div id="work_div"></div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+        <h1 style="color: #FEBA00;">Create a new task:</h1><a href="/show/section/{{sect}}" style="float:right;"><button class="btn btn-default">Go back to the section</button></a></br></br>
+        <p style="color:green;">{{msg}}</p>
+        <form method="post" class="form-horizontal" action="/save/task">
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input class="form-control" type="hidden" 
+                        name="sect" id="sect" value="{{sect}}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Name of the Task: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="name" id="name" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="importance">Importance: </label>
+                <div class="col-sm-10">
+                    <select name="importance" id="importance" class="form-control">
+                        <option value="very-high">Very High</option>
+                        <option value="high">High</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="low">Low</option>
+                        <option value="very-low">Very Low</option>
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="incharge">Who's in charge?: </label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="incharge" id="incharge">
+                        {% for usr in users %}
+                            <option value="{{usr.username}}">{{usr.username}} >> {{usr.email}}</option>
+                        {% endfor %}
+                    </select>
+                    <!-- <input class="form-control" type="text" 
+                        name="incharge" id="incharge" required/> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="comment">Comment:</label>
+                <div class="col-sm-10">
+                    <textarea name="comment" class="form-control" rows="7" id="comment" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </form>
+
+ {% endblock %}

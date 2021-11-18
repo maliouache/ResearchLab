@@ -1,0 +1,75 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+<!-- show the existing tools -->
+	<h3 style="color: #FEBA00;">Tools list:</h3></br>
+	{% if tools|length==0 %}
+		<p style="color:gray;text-align: center;">No tools</p>
+	{% else %}
+		<table class="table" width="100%">
+			<thead style="background-color: #9BFEF1">
+				<th width="30%">Name</th>
+				<th width="60%">Content</th>
+                {% if is_granted('ROLE_PHD')%}
+				<th width="10%">Link</th>
+                {% endif %}
+			</thead>
+			<tbody>
+				{% for tool in tools%}
+    				<tr style="vertical-align: middle;">
+    					<td width="30%">{{tool.URL}}</td>
+    					<td width="60%">{{tool.CONTENT}}</td>
+                        {% if is_granted('ROLE_PHD')%}
+    					<td width="10%"><a href="{{asset(tool.URL)}}" target=_blank class="button2 btn-block">Download</a></td>
+                        {% endif %}
+    				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+<!-- add a new tool -->
+{% if is_granted('ROLE_PHD') %}
+	<h3 style="color: #FEBA00;">Add a new tool:</h3></br>
+    <p style="color:green;">{{msg}}</p>
+    {{ form_start(form_ref, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_errors(form_ref) }}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">Name of the Tool: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" 
+                name="name" id="name" required/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="domain">Domain: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" 
+                name="domain" id="domain" required/>
+        </div>
+    </div>
+    <div class="form-group">
+    {# Génération du label. #}
+    {{ form_label(form_ref.cONTENT, "Content:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form_ref.cONTENT) }}
+
+    <div class="col-sm-10">
+        {# Génération de l'input. #}
+        {{ form_widget(form_ref.cONTENT, {'attr': {'class': 'form-control','rows':'10'}}) }}
+    </div>
+    </div>
+
+    {# Idem pour un autre champ. #}
+    <div class="form-group">
+        {{ form_label(form_ref.file, "Or Upload a file:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(form_ref.file) }}
+        <div class="col-sm-10">
+            {{ form_widget(form_ref.file, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {{ form_widget(form_ref.save, {'attr': {'class': 'btn btn-primary'}}) }}
+    {{ form_end(form_ref) }}
+    </br>
+    <div id="work_div"></div>
+{% endif %}
+{% endblock %}

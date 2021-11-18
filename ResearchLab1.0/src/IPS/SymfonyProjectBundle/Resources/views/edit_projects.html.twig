@@ -1,0 +1,16 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+    <h1 style="color: #FEBA00;">List of the projects</h1>
+    
+
+    <div class="panel-group">
+        {% for project in projects %}
+        <div class="panel panel-primary">
+            <div class="panel-heading"><a href="/show/project/{{project.ID}}"><b style="color:black;">{{project.NAME}}</b></a><a href="/delete/project/{{project.ID}}" onclick="return confirm('are u sure?')" class="edit_btn"><button class="btn btn-danger btn-sm">Delete</button></a><a href="/edit/project/{{project.ID}}" class="edit_btn"><button class="btn btn-warning btn-sm">Edit</button></a></div>
+            <div class="panel-body">{{project.COMMENT}}</div>
+        </div>
+        </br>
+        {% endfor %}
+    </div>
+
+ {% endblock %}

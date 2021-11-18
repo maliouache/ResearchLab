@@ -1,0 +1,70 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %} {% block content%}
+<div style="width:96%;margin:auto;margin-top: 30px;">
+	<h1 style="color: blue; width: 100%; text-align: center;">Drawdown plot:</h1>
+	<h2 style="color: #FEBA00;">Plot a new drawdown:</h2>
+		{% if inhtml %}
+			<div>
+				{{inhtml}}
+			</div>
+			<div>
+          		<a href="/use/tools/pressure_plot/refresh"><button class="btn btn-default btn-lg btn-block""> Refresh the log </button></a>
+          	</div>
+          	
+		{% else %}
+			<div style="float: left;">
+          		<a href="/use/tools/pressure_plot/refresh"><button class="btn btn-default""> Check the previous plot </button></a>
+          	</div></br>
+			{{ form_start(form_ref, {'attr': {'class': 'form-horizontal'}}) }}
+		    {{ form_errors(form_ref) }}
+      </br>
+        	<p>please upload your drawdown using a .txt file or a .mat file, each measurement corresponds to a line in the matrix. the line is structures this way <b>[Head time]</b> in 2D . <a href="{{asset(file_seg)}}" target=_blank>Click Here</a> to downlad an example.</p>
+        	<p style="color:green;">{{msg}}</p>
+        	<p style="color:red;">{{msg_err}}</p>
+            <div class="form-group">
+		        {{ form_label(form_ref.file, "Load the drawdown:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+		        {{ form_errors(form_ref.file) }}
+		        <div class="col-sm-10">
+		            {{ form_widget(form_ref.file, {'attr': {'class': 'form-control'}}) }}
+		        </div>
+		    </div>
+            
+          <div class="form-group" hidden="true">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.cONTENT, "Content:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+			    {# Affichage des erreurs pour ce champ précis. #}
+			    {{ form_errors(form_ref.cONTENT) }}
+
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.cONTENT, {'attr': {'class': 'form-control','rows':'10'}}) }}
+			        <a style="float: right" href="/use/tools/carbonate_dissolution"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		   <div class="form-group">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.save, "Launch the simulation:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.save, {'attr': {'class': 'btn btn-primary'}}) }}
+			        <a style="float: right" href="/use/tools/pressure_plot"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		    
+          	
+          	{{ form_end(form_ref) }}
+        {% endif %}
+          	{% if file_path %}
+          	<div>
+          		<a href="{{asset(file_path)}}" target=_blank><button class="btn btn-success btn-lg btn-block""> Download the results </button></a>
+          	</div>
+          	<div style="width: 60%;margin:auto;margin-top: 50px;">
+          		<a href="/use/tools/pressure_plot"><button class="btn btn-warning btn-lg btn-block""> Plot a new Drawdown </button></a>
+          	</div>
+          	{% endif %}
+
+
+</div>
+{% endblock %}

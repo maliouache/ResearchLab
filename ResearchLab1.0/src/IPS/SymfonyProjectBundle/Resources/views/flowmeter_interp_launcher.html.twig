@@ -1,0 +1,113 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %} 
+{% block content%}
+<div style="width:96%;margin:auto;margin-top: 30px;">
+	<h1 style="color: blue; width: 100%; text-align: center;">Flowmeter Interpretation:</h1>
+	<h2 style="color: #FEBA00;">Launch a new interpretation:</h2>
+		{% if inhtml %}
+			<div>
+				{{inhtml}}
+			</div>
+			<div>
+          		<a href="/use/tools/flowmeter_interp/refresh"><button class="btn btn-default btn-lg btn-block""> Refresh the log </button></a>
+          	</div>
+          	
+		{% else %}
+			<div style="float: left;">
+          		<a href="/use/tools/flowmeter_interp/refresh"><button class="btn btn-default""> Check the previous interpretation </button></a>
+          	</div></br>
+			{{ form_start(form_ref, {'attr': {'class': 'form-horizontal'}}) }}
+		    {{ form_errors(form_ref) }}
+        	<h3 style="color: green;">Flow meter data:</h3>
+        	<p>please upload your flow meter data using a .txt file or a .mat file. the line is structured this way <b>[Depth Flowmeter_count]</b>. <a href="{{asset(file_seg)}}" target=_blank>Click Here</a> to downlad an example of the data format.</p>
+        	<p style="color:green;">{{msg}}</p>
+        	<p style="color:red;">{{msg_err}}</p>
+            <div class="form-group">
+		        {{ form_label(form_ref.file, "Load the data:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+		        {{ form_errors(form_ref.file) }}
+		        <div class="col-sm-10">
+		            {{ form_widget(form_ref.file, {'attr': {'class': 'form-control'}}) }}
+		        </div>
+		    </div>
+		    
+        	<h3 style="color: green;">For the inputs:</h3>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="Qt">Total rate of the pumping (Litre/s): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="Qt" id="Qt" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="wellbore">Wellbore (m): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="wellbore" id="wellbore" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="Keff">Effective permeability of the pumping (m^2): </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="Keff" id="Keff" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="title"> Title of the plots: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="title" id="title" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <p>The zonation consists to divide the depth into zones manually. ex:<b>[11 14.3 18.2 19.4 21 30]</b>. Or use a uniforme discretization min_depth:step:max_depth ex:<b>11:2:30</p>
+                <label class="control-label col-sm-2" for="zonation">Zonation: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" 
+                        name="zonation" id="zonation" required/>
+                </div>
+            </div>
+            
+          <div class="form-group" hidden="true">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.cONTENT, "Content:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+			    {# Affichage des erreurs pour ce champ précis. #}
+			    {{ form_errors(form_ref.cONTENT) }}
+          {{ form_label(form_ref.file2, "Load the junctions:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form_ref.file2) }}
+            <div class="col-sm-10">
+                {{ form_widget(form_ref.file2, {'attr': {'class': 'form-control'}}) }}
+            </div>
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.cONTENT, {'attr': {'class': 'form-control','rows':'10'}}) }}
+			        <a style="float: right" href="/use/tools/flowmeter_interp"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		   <div class="form-group">
+			    {# Génération du label. #}
+			    {{ form_label(form_ref.save, "Launch the simulation:", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {# Génération de l'input. #}
+			        {{ form_widget(form_ref.save, {'attr': {'class': 'btn btn-primary'}}) }}
+			        <a style="float: right" href="/use/tools/flowmeter_interp"><button type="button" class="btn btn-default">Reset</button></a>
+			    </div>
+		   </div>
+		    
+          	
+          	{{ form_end(form_ref) }}
+        {% endif %}
+          	{% if file_path %}
+          	<div>
+          		<a href="{{asset(file_path)}}" target=_blank><button class="btn btn-success btn-lg btn-block""> Download the results </button></a>
+          	</div>
+          	<div style="width: 60%;margin:auto;margin-top: 50px;">
+          		<a href="/use/tools/flowmeter_interp"><button class="btn btn-warning btn-lg btn-block""> Do a new interpretation </button></a>
+          	</div>
+          	{% endif %}
+
+
+</div>
+{% endblock %}

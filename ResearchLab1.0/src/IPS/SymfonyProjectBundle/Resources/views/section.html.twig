@@ -1,0 +1,87 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+        <div class="btn-group" style="width: 100%;">
+            <a href="/show/project/{{project.ID}}"><button type="button" class="btn btn-default"><h3>{{project.NAME}}</h3></button></a>
+            <a href="/show/section/{{section.ID}}"><button type="button" class="btn btn-default"><h3>{{section.NAME}}</h3></button></a>
+        </div>
+        {% if is_granted('ROLE_RESEARCH') %}
+            <a href="/delete/section/{{section.ID}}" style="float:right;" onclick="return confirm('are u sure?')"><button class="btn btn-danger">Delete the section</button></a>
+        {% endif %}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td width="45%"><b>Project:</b></td>
+                    <td width="55%"><a href="/show/project/{{project.ID}}">{{project.NAME}}</a></td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Importance:</b></td>
+                    <td width="55%">{{section.IMPORTANCE}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Add date:</b></td>
+                    <td width="55%">{{add}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>End date:</b></td>
+                    <td width="55%">{{end}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Progress:</b></td>
+                    <td width="55%">
+                        {% if section.STATUT<=24 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                            aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                {{section.STATUT}}% Complete
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if section.STATUT>=24 and section.STATUT<=49 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                            aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                {{section.STATUT}}% Complete
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if section.STATUT<=99 and section.STATUT>=50 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                            aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                {{section.STATUT}}% Complete
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if section.STATUT==100 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                            aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                {{section.STATUT}}% Complete
+                            </div>
+                        </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Content:</b></td>
+                    <td width="55%">{{section.COMMENT}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Tasks:</b></td>
+                    <td width="55%">
+                        {% for task in tasks %}
+                              {% if task.STATUT==100 %}
+                                <a href="/show/task/{{task.ID}}"><button class="btn btn-success btn-block" style="overflow: hidden;">{{task.NAME}}</button></a>
+                                {% elseif task.STATUT==50 %}
+                                <a href="/show/task/{{task.ID}}"><button class="btn btn-warning btn-block" style="overflow: hidden;">{{task.NAME}}</button></a>
+                                {% else %}
+                                <a href="/show/task/{{task.ID}}"><button class="btn btn-danger btn-block" style="overflow: hidden;">{{task.NAME}}</button></a>
+                                {% endif %}
+                              <!-- =>{{task.INCHARGE}}<div style="float:right;"><img {% if task.STATUT==0 %} src="https://cdn2.iconfinder.com/data/icons/seo-web-optomization-ultimate-set/512/time_efficiency-512.png"{% endif %} {% if task.STATUT==100 %} src="http://hddfhm.com/images/check-mark-clipart-9.png"{% endif %} height="15px" width="15px" alt="progress"/></div></br> -->
+                        {% endfor %}
+                        <a href="/add/task/{{section.ID}}"><button class="btn btn-info">Add tasks</button></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+{% endblock %}

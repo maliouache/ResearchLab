@@ -1,0 +1,25 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+        <h1 style="color: #FEBA00;">References</h1>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td width="25%"><b>All in this section:</b></td>
+                    <td width="75%">
+                        {% for reference in references%}
+                        {% set names=reference.URL|split('/') %}
+                            {% if reference.URL matches '{.+\.pdf$}' %}
+                                <a href="{{asset(reference.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://ressources.blogdumoderateur.com/2013/07/pdf-240x240.png" height="65px" width="65px"><br>{{names|last}}</div></a>
+                            {% elseif reference.URL matches '{.+\.pptx$}' %}
+                                <a href="{{asset(reference.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://www.freeiconspng.com/uploads/microsoft-powerpoint-document-icon-4.png" height="65px" width="65px"><br>{{names|last}}</div></a>
+                            {% elseif reference.URL matches '{.+\.rar$}' %}
+                                <a href="{{asset(reference.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://store.musicofnature.com/wp-content/uploads/2016/02/zip1.png" height="65px" width="65px"><br>{{names|last}}</div></a>
+                            {% else %}
+                                <a href="{{asset(reference.URL)}}" target=_blank><div  class="tile_document" style="height: 120px;width: 150px; float: left;text-align: center;"><img src="https://cdn4.iconfinder.com/data/icons/flatified/512/file.png" height="65px" width="65px"><br>{{names|last}}</div></a>
+                            {% endif%}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+{% endblock %}

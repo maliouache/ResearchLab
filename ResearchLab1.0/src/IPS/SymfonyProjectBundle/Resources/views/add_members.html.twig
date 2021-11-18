@@ -1,0 +1,38 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+		<h1 style="color: #FEBA00;">Add members to <a href="/show/project/{{project.ID}}">{{project.NAME}}</a>:</h1>
+        <p style="color:green;">{{msg}}</p>
+	        <table class="table" width="80%" style="margin: auto;margin-top: 40px;">
+				<thead style="background-color: #9BFEF1">
+					<th width="50%">Member</th>
+					<th width="50%">Action</th>
+				</thead>
+				<tbody>
+					{% for member in members %}
+					<tr style="vertical-align: middle;">
+						<td width="50%">{{member.USERNAME}}</td>
+						<td width="50%"><a href="/remove/member/{{project.ID}}/{{member.USERNAME}}">Remove</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+        <form method="post" class="form-horizontal" action="/add/member/{{project.ID}}" style="margin-top: 50px;">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="newmember">Choose a new member: </label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="newmember" id="newmember">
+                        {% for usr in users %}
+                            <option value="{{usr.username}}">{{usr.username}} >> {{usr.email}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </form>
+
+
+{% endblock %}

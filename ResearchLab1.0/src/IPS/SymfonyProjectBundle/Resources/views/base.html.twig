@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ResearchLab Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="{{asset('bundles/IPS/js/work.js')}}"></script>
+
+  <style>
+    
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 1096px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 1096px;
+    }
+
+    .btn2 {
+    display:inline-block;
+    background-color:#f44336;
+    color: #FFFFFF;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size:16px;
+    margin-left:20px;
+    opacity:0.9;
+    }
+    .btn2:hover {
+    color:white;
+    background-color:red;
+    opacity:1;
+    }
+    .button2 {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left:20px;
+    }
+    .button2:hover {
+    background-color: #4CAF50;
+    color: white;
+    }
+    .button3 {
+    background-color: white;
+    color: black;
+    border: 2px solid #0069ff;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left:20px;
+    }
+    .button3:hover {
+    background-color: #0069ff;
+    color: white;
+    }
+    a:hover {
+      text-decoration:none;
+    }
+    .btn-dark{
+      color: #fff;
+      background-color: #343a40;
+      border-color: #343a40;
+    }
+    .btn-dark:hover{
+      color: #000000;
+      background-color: #fffdd5;
+      border-color: #fffdd5;
+    }
+    .tile_document{
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-bottom: 5px;
+ 
+    }
+    .tile_document:hover{
+      background-color: #F5F6F6;
+    }
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+    }
+    .edit_btn{
+            float: right;
+        }
+    html {
+      height: 100%;
+    }
+    body {
+      min-height: 100%;
+    }
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400');
+.bg_pulse,
+.button_pulse {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.container_pulse {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg_pulse {
+  position: absolute;
+  animation: pulse 1.2s ease infinite;
+  background: #ff3466;
+}
+
+.button_pulse {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  border: none;
+  background: #ff3466;
+  background-size: 18px;
+  cursor: pointer;
+  outline: none;
+}
+
+.button_pulse a {
+  position: absolute;
+  color: #FFF;
+  font-size: 17px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="/">ResearchLab</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/profile/options">Profile</a></li>
+        <li><a href="/use/tools"><button class="btn btn-warning" style="padding: 0px 0px;">Use Tools</button></a></li>
+        <li>
+          <div style="width: 400px; height: 30px;margin: auto;padding: 10px;">
+            <form action="/show/search">
+              <input type="text" name="search" id="search" placeholder="Search.." style="width: 75%;float: left;height: 35px;">
+              <button type="submit" class="btn btn-primary" style="width: 25%;float: left;">Search</button>
+            </form>
+          </div>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li>{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+          
+          <a href="{{ path('fos_user_security_logout') }}">
+              <span class="glyphicon glyphicon-log-in"></span> {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} | Logout
+          </a>
+          {% else %}
+              <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p><a href="/create/project">Create new project</a></p>
+      <p><a href="/edit/projects">Edit Existing projects</a></p>
+      {% if var>0 %}
+        <p><a href="/show/mytasks"><!-- <button class="btn btn-primary">TODO</button> -->
+          <div class="container_pulse" style="clear: both;">
+            <div class="bg_pulse"></div>
+            <button class="btn btn-primary button_pulse"><b style="color:green;border-radius: 100%;height: 60%;width: 30%;text-align: center;font-size: 1.4em;">{{var}}</b>   TODO</button>
+          </div>
+        </a></p>
+      {% else %}
+        <p><a href="/show/mytasks"><!-- <button class="btn btn-primary">TODO</button> -->
+            <button class="btn btn-primary"><p>TODO</p></button>
+        </a></p>
+      {% endif %}
+      <p style="clear: both;"><a href="/show/tools">Tools</a></p>
+      {% if is_granted('ROLE_MANAGER')%}
+      <p><a href="/staff">Staff</a></p>
+      {% endif %}
+    </div>
+    <div class="col-sm-8 text-left"> 
+        <!-- here starts the main content -->
+        {% block content %}{% endblock %}
+        <!-- here ends the main content -->
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
+
+</body>
+</html>

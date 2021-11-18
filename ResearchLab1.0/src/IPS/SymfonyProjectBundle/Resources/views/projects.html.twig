@@ -1,0 +1,129 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+                <h1 style="color: #FEBA00;">List of the projects</h1>
+                <!-- here ends the main content -->
+
+                <div class="panel-group">
+                    {% for project in projects %}
+                        {% if project.ID==3 %}
+                            {% if is_granted('ROLE_MANAGER') %}
+                                <div class="panel panel-primary">
+                                <div class="panel-heading"><a href="/show/project/{{project.ID}}"><b style="color:black;">{{project.NAME}}</b></a></div>
+                                <div class="panel-body">
+                                        <table class="table">
+                                          <tbody>
+                                            <tr>
+                                                <td width="70%">
+                                                    <b>Total Progress: </b>
+                                                    {% if project.progress<=24 %}
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{project.progress}}"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                                            {{project.progress}}% Complete
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if project.progress>=25 and project.progress<=49 %}
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{project.progress}}"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                                            {{project.progress}}% Complete
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if project.progress<=99 and project.progress>=50 %}
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{project.progress}}"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                                            {{project.progress}}% Complete
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if project.progress==100 %}
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{project.progress}}"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                                            {{project.progress}}% Complete
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}</br>
+                                                    {{project.COMMENT}}
+                                                </td>
+                                              <td width="30%">
+                                                <!-- <div class="btn-group-vertical"> -->
+                                                  <a href="/show/project/{{project.ID}}" class="button2 btn-block">See the sections</a>
+                                                  <a href="/add/section/{{project.ID}}" class="button2 btn-block">Add a new section</a>
+                                                  <a href="/add/member/{{project.ID}}" class="button2 btn-block">Add members</a>
+                                                  <a href="#" class="button2 btn-block">Here a new option</a>
+                                                  <a href="/project/references/{{project.ID}}" class="button2 btn-block">References/Bibliography</a>
+                                                <!-- </div> -->
+                                              </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </br>
+                            {% endif %}
+                        {% else %}
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><a href="/show/project/{{project.ID}}"><b style="color:black;">{{project.NAME}}</b></a></div>
+                                <div class="panel-body">
+                                        <table class="table">
+                                          <tbody>
+                                            <tr>
+                                                <td width="70%">
+                                                    <b>Total Progress: </b>
+                                                    {% if project.progress<=24 %}
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{project.progress}}"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                                            {{project.progress}}% Complete
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if project.progress>=25 and project.progress<=49 %}
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{project.progress}}"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                                            {{project.progress}}% Complete
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if project.progress<=99 and project.progress>=50 %}
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{project.progress}}"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                                            {{project.progress}}% Complete
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if project.progress==100 %}
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{project.progress}}"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                                                            {{project.progress}}% Complete
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}</br>
+                                                    {{project.COMMENT}}
+                                                </td>
+                                              <td width="30%">
+                                                <!-- <div class="btn-group-vertical"> -->
+                                                  <a href="/show/project/{{project.ID}}" class="button2 btn-block">See the sections</a>
+                                                  <a href="/add/section/{{project.ID}}" class="button2 btn-block">Add a new section</a>
+                                                  <a href="/add/member/{{project.ID}}" class="button2 btn-block">Add members</a>
+                                                  <a href="#" class="button2 btn-block">Here a new option</a>
+                                                  <a href="/project/references/{{project.ID}}" class="button2 btn-block">References/Bibliography</a>
+                                                <!-- </div> -->
+                                              </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                            </br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+{% endblock %}
