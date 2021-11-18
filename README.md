@@ -8,11 +8,13 @@
  3- If you are deploying the application in a localhost, we recommand to install wampserver. 
 
  4- Make sure to give the right access to the database by modifiying the file ./app/config/parameters.yml and then continue with the following commands - fill all the informations in parameters. yml file
-    -$php bin/console doctrine:database:create
-    -$php bin/console doctrine:schema:update --force
+ 
+    php bin/console doctrine:database:create
+    
+    php bin/console doctrine:schema:update --force
     
  5- Deploy the application on the server, you can use a dev environment by using the following command, or deploy a prod environment by hosting the app with defining web/ as the root app directory
-	-$php bin/console server:start
+ 
+	php bin/console server:start
 
-	
 Please make sure you are connected to internet since it uses bootstrap ressources
