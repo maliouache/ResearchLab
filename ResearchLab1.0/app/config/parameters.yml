@@ -7,7 +7,7 @@ parameters:
     database_password: null
     mailer_transport: smtp
     mailer_host: 127.0.0.1
-    mailer_user: aliouachemohammed@hotmail.com
+    mailer_user: null
     mailer_password: null
     secret: af87a3f86bcbe087aecc230224468d64a83c4fbc
     matlab_folder: C:\Program Files\MATLAB\R2017a\bin
