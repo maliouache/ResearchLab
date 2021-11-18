@@ -7,5 +7,4 @@
 !var/sessions/.gitkeep
 
 # Parameters
-/app/config/parameters.yml
 /app/config/parameters.ini
