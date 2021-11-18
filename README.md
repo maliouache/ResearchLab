@@ -11,9 +11,9 @@
  
     php ../composer.phar update
 
- 4- If you are deploying the application in a localhost, we recommand to install wampserver. 
+ 4- If you are deploying the application in a localhost, we recommand to install wampserver:
  
-    https://www.wampserver.com/
+ https://www.wampserver.com/
 
  5- Make sure to give the right access to the database by modifiying the file ./app/config/parameters.yml and then continue with the following commands - fill all the informations in parameters. yml file
  
