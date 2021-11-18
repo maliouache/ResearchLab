@@ -3,7 +3,7 @@
 
  2- Execute the following commands:
  
-    -$php ../composer.phar update
+    php ../composer.phar update
 
  3- If you are deploying the application in a localhost, we recommand to install wampserver. 
 
