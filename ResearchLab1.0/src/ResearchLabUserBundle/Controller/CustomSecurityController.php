@@ -52,14 +52,13 @@ class CustomSecurityController extends Controller
     $user=new User();
     $form_usr= $this->get('form.factory')->create(UserType::class, $user)->add('Register',SubmitType::class);
     if ($request->isMethod('POST') && $form_usr->handleRequest($request)->isValid()) {
-      // Ajoutez cette ligne :
-      // c'est elle qui déplace l'image là où on veut les stocker
-      
-      $em = $this->getDoctrine()->getManager();
 
-      $em->persist($user);
-      $em->flush();
-      $msg='The new user has been added successfully!';
+      
+		$em = $this->getDoctrine()->getManager();
+		$user->setRoles(array("ROLE_MANAGER"));
+		$em->persist($user);
+		$em->flush();
+		$msg='The new user has been added successfully!';
       // ...
   }
     return $this->render('ResearchLabUserBundle::addUserForm.html.twig',array(
