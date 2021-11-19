@@ -55,7 +55,6 @@ class CustomSecurityController extends Controller
 
       
 		$em = $this->getDoctrine()->getManager();
-		$user->setRoles(array("ROLE_MANAGER"));
 		$em->persist($user);
 		$em->flush();
 		$msg='The new user has been added successfully!';
