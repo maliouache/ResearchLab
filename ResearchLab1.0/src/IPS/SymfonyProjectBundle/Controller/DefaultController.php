@@ -702,18 +702,36 @@ class DefaultController extends Controller
         // okay, generate $okayResponse
         return $this->staffAction();
     }
-    public function showtoolsAction($task_id=8,Request $request){
+    public function showtoolsAction(Request $request){
         $this->checkLogin();
         $msg="";
         $work=new Work();
         $em = $this->getDoctrine()->getManager();
-        $tools_proj=$em->getRepository('IPSSymfonyProjectBundle:Project')->find(3);
+        $tools_proj=$em->getRepository('IPSSymfonyProjectBundle:Project')->findOneBy(array('nAME'=>'Tools','dOMAIN'=>'tools'));
+		if ($tools_proj==null){
+			$project=new Project();
+			$project->init("Tools","high",null,"tools","This project is used to store the different tools!");
+			$em=$this->getDoctrine()->getManager();
+			$project->addUser($this->getUser());
+			$em->persist($project);
+			//$em->flush();
+			$section=new Section();
+			$section->init("Tools","high","This section is used to store the different tools!",$project);
+			$em->persist($section);
+			//$em->flush();
+			$task=new Task();
+			$task->init("Tools","high",$this->getUser(),"This task is used to store the different tools!",$section,$this->getUser()->getUsername());
+			$em->persist($task);
+			$em->flush();
+			return $this->showtoolsAction($request);
+		}
         $this->checkprojectaccess($tools_proj,$this->getUser());
         $form_ref = $this->get('form.factory')->create(WorkType::class, $work);
+		$task=$em->getRepository('IPSSymfonyProjectBundle:Task')->findOneBy(array('nAME'=>'Tools'));
+		$task_id=$task->getId();
         if ($request->isMethod('POST') && $form_ref->handleRequest($request)->isValid()) {
             // Ajoutez cette ligne :
             // c'est elle qui déplace l'image là où on veut les stocker
-            $task=$em->getRepository('IPSSymfonyProjectBundle:Task')->find($task_id);
             // $task=$em->getRepository('IPSSymfonyProjectBundle:Project')->find($task->getSECTION()->get);
             $work->upload("Tools",$_POST["domain"],$_POST["name"]);
             // print_r($reference);
